@@ -2,17 +2,25 @@
 #
 # SPDX-License-Identifier: MIT
 
+"""
+Test digitalio.DigitalInOut functionality.
+"""
+
 from digitalio import DigitalInOut, Direction, Pull, DriveMode
 
-def reset_pin(pin):
-    dio = DigitalInOut(pin)
-    dio.deinit()
 
+# pylint: disable=too-many-statements
 def test_pin(pin):
+    """Test as much DigitalInOut functionality as possible on the given pin,
+    assuming it is not connected to anything.
+    """
+
     dio = DigitalInOut(pin)
 
     # Initially: input, no pull, value is low, no drive mode
-    assert dio.direction == Direction.INPUT, f"{pin} .direction should be INPUT to start"
+    assert (
+        dio.direction == Direction.INPUT
+    ), f"{pin} .direction should be INPUT to start"
     assert dio.pull is None, f"{pin} .pull should be None to start"
 
     try:
@@ -33,7 +41,9 @@ def test_pin(pin):
 
     dio.pull = Pull.DOWN
     assert dio.pull == Pull.DOWN, f"{pin} .pull should be DOWN"
-    assert dio.value is False, f"{pin} .value should be False after setting .pull to DOWN"
+    assert (
+        dio.value is False
+    ), f"{pin} .value should be False after setting .pull to DOWN"
 
     dio.pull = None
     assert dio.pull is None, f"{pin} .pull should be None"
@@ -43,14 +53,20 @@ def test_pin(pin):
     assert dio.pull is None, f"{pin} .pull should be None after switch_to_input()"
 
     dio.switch_to_input(pull=Pull.UP)
-    assert dio.direction == Direction.INPUT, f"{pin} .direction should be INPUT after switch_to_input"
+    assert (
+        dio.direction == Direction.INPUT
+    ), f"{pin} .direction should be INPUT after switch_to_input"
     assert dio.pull == Pull.UP, f"{pin} .pull should be UP"
     assert dio.value is True, f"{pin} .value should be True after setting .pull to UP"
 
     dio.switch_to_input(pull=Pull.DOWN)
-    assert dio.direction == Direction.INPUT, f"{pin} .direction should be INPUT after switch_to_input()"
+    assert (
+        dio.direction == Direction.INPUT
+    ), f"{pin} .direction should be INPUT after switch_to_input()"
     assert dio.pull == Pull.DOWN, f"{pin} .pull should be DOWN"
-    assert dio.value is False, f"{pin} .value should be False after setting .pull to DOWN"
+    assert (
+        dio.value is False
+    ), f"{pin} .value should be False after setting .pull to DOWN"
 
     dio.switch_to_output()
     try:
@@ -60,37 +76,63 @@ def test_pin(pin):
         pass
 
     dio.switch_to_output(value=False, drive_mode=DriveMode.PUSH_PULL)
-    assert dio.direction == Direction.OUTPUT, f"{pin} .direction should be OUTPUT after switch_to_output()"
-    assert dio.drive_mode == DriveMode.PUSH_PULL, f"{pin} .drive_mode should be PUSH_PULL"
+    assert (
+        dio.direction == Direction.OUTPUT
+    ), f"{pin} .direction should be OUTPUT after switch_to_output()"
+    assert (
+        dio.drive_mode == DriveMode.PUSH_PULL
+    ), f"{pin} .drive_mode should be PUSH_PULL"
     assert dio.value is False, f"{pin} .value should be False"
 
     dio.switch_to_output(value=False, drive_mode=DriveMode.OPEN_DRAIN)
-    assert dio.direction == Direction.OUTPUT, f"{pin} .direction should be OUTPUT after switch_to_output()"
-    assert dio.drive_mode == DriveMode.OPEN_DRAIN, f"{pin} .drive_mode should be OPEN_DRAIN"
+    assert (
+        dio.direction == Direction.OUTPUT
+    ), f"{pin} .direction should be OUTPUT after switch_to_output()"
+    assert (
+        dio.drive_mode == DriveMode.OPEN_DRAIN
+    ), f"{pin} .drive_mode should be OPEN_DRAIN"
     assert dio.value is False, f"{pin} .value should be False"
 
     dio.switch_to_output(value=False, drive_mode=DriveMode.PUSH_PULL)
-    assert dio.direction == Direction.OUTPUT, f"{pin} .direction should be OUTPUT after switch_to_output()"
-    assert dio.drive_mode == DriveMode.PUSH_PULL, f"{pin} .drive_mode should be PUSH_PULL"
+    assert (
+        dio.direction == Direction.OUTPUT
+    ), f"{pin} .direction should be OUTPUT after switch_to_output()"
+    assert (
+        dio.drive_mode == DriveMode.PUSH_PULL
+    ), f"{pin} .drive_mode should be PUSH_PULL"
     assert dio.value is False, f"{pin} .value should be False"
 
     dio.switch_to_output(value=False, drive_mode=DriveMode.OPEN_DRAIN)
-    assert dio.direction == Direction.OUTPUT, f"{pin} .direction should be OUTPUT after switch_to_output()"
-    assert dio.drive_mode == DriveMode.OPEN_DRAIN, f"{pin} .drive_mode should be OPEN_DRAIN"
+    assert (
+        dio.direction == Direction.OUTPUT
+    ), f"{pin} .direction should be OUTPUT after switch_to_output()"
+    assert (
+        dio.drive_mode == DriveMode.OPEN_DRAIN
+    ), f"{pin} .drive_mode should be OPEN_DRAIN"
     assert dio.value is False, f"{pin} .value should be False"
 
     dio.switch_to_output(value=True, drive_mode=DriveMode.PUSH_PULL)
-    assert dio.direction == Direction.OUTPUT, f"{pin} .direction should be OUTPUT after switch_to_output()"
-    assert dio.drive_mode == DriveMode.PUSH_PULL, f"{pin} .drive_mode should be PUSH_PULL"
+    assert (
+        dio.direction == Direction.OUTPUT
+    ), f"{pin} .direction should be OUTPUT after switch_to_output()"
+    assert (
+        dio.drive_mode == DriveMode.PUSH_PULL
+    ), f"{pin} .drive_mode should be PUSH_PULL"
     assert dio.value is True, f"{pin} .value should be True"
 
     dio.switch_to_output(value=True, drive_mode=DriveMode.OPEN_DRAIN)
-    assert dio.direction == Direction.OUTPUT, f"{pin} .direction should be OUTPUT after switch_to_output()"
-    assert dio.drive_mode == DriveMode.OPEN_DRAIN, f"{pin} .drive_mode should be OPEN_DRAIN"
+    assert (
+        dio.direction == Direction.OUTPUT
+    ), f"{pin} .direction should be OUTPUT after switch_to_output()"
+    assert (
+        dio.drive_mode == DriveMode.OPEN_DRAIN
+    ), f"{pin} .drive_mode should be OPEN_DRAIN"
     assert dio.value is True, f"{pin} .value should be True"
 
     dio.switch_to_input()
-    assert dio.direction == Direction.INPUT, f"{pin} .direction should be INPUT after switch_to_input()"
+    assert (
+        dio.direction == Direction.INPUT
+    ), f"{pin} .direction should be INPUT after switch_to_input()"
 
     dio.deinit()
     try:
@@ -101,6 +143,8 @@ def test_pin(pin):
 
 
 def test_pin_pair(pin1, pin2):
+    """Test functionality with two given pins that are jumpered together."""
+
     dio1 = DigitalInOut(pin1)
     dio2 = DigitalInOut(pin2)
 

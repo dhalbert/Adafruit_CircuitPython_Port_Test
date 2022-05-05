@@ -6,12 +6,16 @@ import board
 
 from adafruit_port_test import test_digitalio
 
-input("Remove any jumper from A1 and press return:")
-print("Testing digitalio.DigitalInOut board.A1")
-test_digitalio.test_pin(board.A1)
+PIN1 = board.A1
+PIN2 = board.A2
+
+input(f"Remove any jumper from {PIN1} and press return:")
+print(f"Testing digitalio.DigitalInOut on {PIN1}")
+test_digitalio.test_pin(PIN1)
 print("OK")
 
-input("Jumper A1 to A2 and press return:")
-print("Testing digitalio.DigitalInOut between board.A1 and board.A2")
-test_digitalio.test_pin_pair(board.A1, board.A2)
+input(f"Jumper {PIN1} to {PIN2} and press enter:")
+print(f"Testing digitalio.DigitalInOut between {PIN1} and {PIN2}")
+
+test_digitalio.test_pin_pair(PIN1, PIN2)
 print("OK")
