@@ -15,6 +15,19 @@ def test_pin(pin):
     assuming it is not connected to anything.
     """
 
+    # Test context manager deinit
+    with DigitalInOut(pin) as dio:
+        try:
+            _ = dio.value
+        except Exception:
+            # pylint: disable=raise-missing-from
+            raise AssertionError("context manager for DigitalInOut did not work")
+    try:
+        _ = dio.value
+        raise AssertionError("context manager did not deinit()")
+    except ValueError:
+        pass
+
     dio = DigitalInOut(pin)
 
     # Initially: input, no pull, value is low, no drive mode
@@ -25,7 +38,7 @@ def test_pin(pin):
 
     try:
         dio.value = True
-        raise AssertionError(f"{pin} .value should not work when INPUT")
+        raise AssertionError(f"{pin} .value assignment should not work when INPUT")
     except AttributeError:
         pass
 
