@@ -4,14 +4,18 @@
 
 import board
 
-from adafruit_port_test import test_digitalio
+from adafruit_port_test import test_analogio
 
-PIN1 = board.A1
-PIN2 = board.A2
+AIN_PIN = board.A0
+AOUT_PIN = board.A2
 
-input("Remove any jumper from {PIN1} and press return:".format(PIN1=PIN1))
-print("Testing digitalio.DigitalInOut on {PIN1}".format(PIN1=PIN1))
-test_digitalio.test_pin(PIN1)
+input("Remove any jumpers and press Enter:")
+print(f"Testing analogio.AnalogIn on {AIN_PIN}")
+test_analogio.test_analogin_pin(AIN_PIN)
+print("OK")
+
+print(f"Testing analogio.AnalogOut on {AOUT_PIN}")
+test_analogio.test_pin(AOUT_PIN)
 print("OK")
 
 input("Jumper {PIN1} to {PIN2} and press enter:".format(PIN1=PIN1, PIN2=PIN2))
